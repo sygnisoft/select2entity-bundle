@@ -2,7 +2,7 @@
 
 namespace Tetranz\Select2EntityBundle\Form\DataTransformer;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -110,7 +110,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
                     ->getQuery()
                     ->getSingleResult();
             }
-            catch (\Exception $ex) {
+            catch (\Doctrine\ORM\UnexpectedResultException $ex) {
                 // this will happen if the form submits invalid data
                 throw new TransformationFailedException(sprintf('The choice "%s" does not exist or is not unique', $value));
             }
